@@ -30,6 +30,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  intl: any
+  provider: ^6.1.0
+
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -47,6 +52,20 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^3.0.0
   google_fonts: ^6.2.1
+  flutter_native_splash: ^2.4.1
+
+flutter_native_splash:
+  background_image: "assets/images/Splash_Light.png"
+  image_dark: "assets/images/Splash_dark.png"
+  android_12:
+    color: "#F0F0F0"
+    color_dark: "#101127"
+    branding: "assets/images/branding.png"
+    image: "assets/images/Logo.png"
+
+  android: true
+  ios: true
+  web: true
 
 
 # For information on the generic Dart part of this file, see the
@@ -54,6 +73,8 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
+  generate: true # Add this line
+
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
