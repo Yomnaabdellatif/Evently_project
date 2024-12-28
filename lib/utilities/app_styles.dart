@@ -74,6 +74,9 @@ class AppStyles{
   static TextStyle semi16primaryLight=GoogleFonts.inter(
       fontSize: 16,fontWeight: FontWeight.w500
       ,color: AppColors.primaryLight);
+  static TextStyle semi16LightGray=GoogleFonts.inter(
+      fontSize: 16,fontWeight: FontWeight.w500
+      ,color: AppColors.lightGray);
 
 
 }

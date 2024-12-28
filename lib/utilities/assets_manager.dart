@@ -32,6 +32,11 @@ class AssetsManager{
   static String gaming ="assets/images/gaming.png";
   static String holiday="assets/images/holiday.png";
   static String meeting="assets/images/meeting.png";
+  static String startImage="assets/images/started_page_photo.png";
+  static String onboardingImage1="assets/images/onboarding1.png";
+  static String onboardingImage2="assets/images/onboarding2.png";
+  static String onboardingImage3="assets/images/onboarding3.png";
+  static String logoRow="assets/images/logo_with_name.png";
 
 
 

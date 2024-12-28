@@ -18,7 +18,7 @@ class ProfileTab extends StatelessWidget {
     var languageProvider= Provider.of<AppLanguageProvider>(context);
     var themeProvider= Provider.of<AppThemeProvider>(context);
     return Scaffold(
-      appBar: AppBar(backgroundColor: Theme.of(context).primaryColor,
+      appBar: AppBar(backgroundColor: AppColors.primaryLight,
         title: Row(children: [Image.asset(AssetsManager.profileImage),SizedBox(width: width*0.01,),
         Column(children: [Text("Route ",style: AppStyles.bold24White,),Text("route@gmail.com",style: AppStyles.semi16White,)],)],),
         toolbarHeight: height*0.2,shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(bottomLeft: Radius.circular(60))),),
@@ -80,7 +80,33 @@ class ProfileTab extends StatelessWidget {
                     ],),
                 )
                 ,),
-            )
+            ),
+            Spacer(),
+
+            ElevatedButton(onPressed: (){
+            },
+                style: ElevatedButton.
+                styleFrom(backgroundColor:AppColors.red,elevation: 0,
+                    disabledBackgroundColor: AppColors.transparent,overlayColor:AppColors.transparent
+                    ,padding: EdgeInsets.symmetric(vertical: height*((25)/840)),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+
+                    ) ),
+
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SizedBox(width: width*0.01,),
+                    Icon(Icons.logout,color: AppColors.white,),
+                    SizedBox(width: width*0.01,),
+                    Text(AppLocalizations.of(context)!.logout,style: AppStyles.semi20White,)
+
+                  ],
+                )),
+            SizedBox(height: height*0.03,),
+
+
 
           ],),
       ),

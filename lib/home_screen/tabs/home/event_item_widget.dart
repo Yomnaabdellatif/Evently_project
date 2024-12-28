@@ -31,7 +31,8 @@ class EventItemWidget extends StatelessWidget {
         margin:  EdgeInsets.symmetric(vertical: height*(0.005),horizontal: width*0.009),
       padding: EdgeInsets.symmetric(vertical: height*(0.001),horizontal: width*0.02) ,
       decoration:
-    BoxDecoration(color:themeProvider.appTheme==ThemeMode.light ? AppColors.white:AppColors.primaryDark,
+    BoxDecoration(
+      color:themeProvider.appTheme==ThemeMode.light ? AppColors.white:AppColors.primaryDark,
       borderRadius: BorderRadius.circular(16),
 
     ),
@@ -43,7 +44,7 @@ class EventItemWidget extends StatelessWidget {
 
       ],
     ),),
-        Container(height: height*0.05,
+        Container(height: height*0.06,
         margin:  EdgeInsets.symmetric(vertical: height*(0.01),horizontal: width*0.01),
         padding: EdgeInsets.symmetric(vertical: height*(0.001),horizontal: width*0.02) ,
         decoration:
@@ -56,12 +57,12 @@ class EventItemWidget extends StatelessWidget {
         child: Row(
           // mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Expanded(child:
-
-            Text("Meeting for Updating The Development Method ",style:
-            themeProvider.appTheme==ThemeMode.light ?
-            AppStyles.bold14Black:AppStyles.bold14White
-            ))
+            Expanded(
+              child: Text("Meeting for Updating The Development Method ",style:
+              themeProvider.appTheme==ThemeMode.light ?
+              AppStyles.bold14Black:AppStyles.bold14White
+              ),
+            )
             ,Image.asset(AssetsManager.iconLove,color: AppColors.primaryLight,)
 
           ],

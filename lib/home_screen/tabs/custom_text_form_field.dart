@@ -1,8 +1,10 @@
 import 'package:evently_project/utilities/app_colors.dart';
 import 'package:evently_project/utilities/app_styles.dart';
 import 'package:flutter/material.dart';
+typedef MyValidator=String? Function(String?)?;
 
 class CustomTextFormField extends StatelessWidget {
+  MyValidator validator;
   Color borderColor;
   Color iconColor;
   TextStyle? labelStyle;
@@ -12,15 +14,20 @@ class CustomTextFormField extends StatelessWidget {
   String? labelText;
   String? hintText;
 bool? obscureText;
-
+int? maxLines;
+TextEditingController? controller;
+  // String? Function(String?)? validator;
   CustomTextFormField({
+    this.controller,
+    this.maxLines=1,
     this.obscureText,
-     this.hintStyle,
+    this.hintStyle,
     this.borderColor=AppColors.gray,
     required this.hintText,
     this.prefixIcon,
     this.suffixIcon,
     this.iconColor=AppColors.gray,
+    this.validator
 
 
   });
@@ -30,7 +37,9 @@ bool? obscureText;
     return TextFormField(
       obscuringCharacter: "*",
       obscureText:obscureText ??false,
-
+      maxLines: maxLines,
+      validator: validator,
+      controller: controller,
 
       decoration:
       InputDecoration(
@@ -55,9 +64,7 @@ bool? obscureText;
         OutlineInputBorder(borderRadius: BorderRadius.circular(16),borderSide: BorderSide(color:borderColor ))
         ,
         errorBorder:
-        OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16),
-            borderSide: BorderSide(color:AppColors.red ))
+        OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: BorderSide(color:AppColors.red ))
         ,
         disabledBorder:
         OutlineInputBorder(borderRadius: BorderRadius.circular(16),borderSide: BorderSide(color:borderColor ))

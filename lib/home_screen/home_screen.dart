@@ -1,16 +1,14 @@
+import 'package:evently_project/home_screen/create_event_screen.dart';
 import 'package:evently_project/home_screen/language_bottom_sheet.dart';
 import 'package:evently_project/home_screen/tabs/favorite/favorite_tab.dart';
 import 'package:evently_project/home_screen/tabs/home/home_tab.dart';
 import 'package:evently_project/home_screen/tabs/map/map_tab.dart';
 import 'package:evently_project/home_screen/tabs/profile/profile_tab.dart';
-import 'package:evently_project/home_screen/theme_bottom_sheet.dart';
 import 'package:evently_project/utilities/app_colors.dart';
-import 'package:evently_project/utilities/app_styles.dart';
 import 'package:evently_project/utilities/assets_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
-
 import '../providers/app_language_provider.dart';
 import '../providers/app_theme_provider.dart';
 
@@ -29,8 +27,7 @@ List<Widget>tabs=[HomeTab(),MapTab(),FavoriteTab(),ProfileTab()];
   @override
   Widget build(BuildContext context) {
     var height =MediaQuery.of(context).size.height;
-    var languageProvider= Provider.of<AppLanguageProvider>(context);
-    var themeProvider= Provider.of<AppThemeProvider>(context);
+
 
 
     return Scaffold(
@@ -75,7 +72,9 @@ List<Widget>tabs=[HomeTab(),MapTab(),FavoriteTab(),ProfileTab()];
         ),
       ),
       floatingActionButton:
-      FloatingActionButton(onPressed: (){},child: Icon(Icons.add,color: AppColors.white,),),
+      FloatingActionButton(onPressed: (){
+        Navigator.pushNamed(context, CreateEventScreen.routeName);
+      },child: Icon(Icons.add,color: AppColors.white,),),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       body: tabs[selectedIndex]
 

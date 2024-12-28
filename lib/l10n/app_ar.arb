@@ -8,7 +8,6 @@
 "love":"المفضلة",
 "map":"الخريطة",
 "profile": "ملفي",
-
 "search_for_event":"البحث عن موعد",
 "description":"الوصف",
 "title":"العنوان",
@@ -17,6 +16,11 @@
 "location":"الموقع",
 "update_event":"تحديث الموعد",
 "tap_on_location_to_select":"اضغط على الموقع للإختيار",
+"create_event":"إنشاء موعد",
+"add_event":"إضافة موعد",
+"event_title":"عنوان الموعد",
+"event_description":"تفاصيل الموعد",
+"choose_event_location":"اختر موقع الموعد",
 "event_details":"تفاصيل الموعد",
 "edit_event":"تعديل الموعد",
 "logout":"تسجيل الخروج",
@@ -28,7 +32,7 @@
 "name":"الاسم",
 "create_account":"إنشاء حساب",
 "register":"التسجيل",
-"already_have_account":"لدي حساب بالفعل?",
+"already_have_account":"لدي حساب بالفعل؟",
 "forget_password":"نسيت كلمة المرور",
 "login":"دخول",
 "do_not_have_account":"ليس لدي حساب ؟",
@@ -44,5 +48,10 @@
 "book_club":"نادي الكتاب",
 "eating":"طعام",
 "exhibition":"معرض",
-"welcome_back": "مرحبًا بعودتك"
+"welcome_back": "مرحبًا بعودتك",
+"choose_date":"اختر التاريخ",
+"choose_time":"اختر الوقت",
+"let_us_start":"هيا نبدأ",
+"language_shortcut":"ع"
+
 }

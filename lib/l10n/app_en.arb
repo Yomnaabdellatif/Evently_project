@@ -16,6 +16,11 @@
 "event_time":"Event Time",
 "location":"Location",
 "update_event":"Update Event",
+"create_event":"Create Event",
+"add_event":"Add Event",
+"event_title":"Event Title",
+"event_description":"Event Description",
+"choose_event_location":"Choose Event Location",
 "tap_on_location_to_select":"Tap on Location To Select",
 "event_details":"Event Details",
 "edit_event":"Edit Event",
@@ -31,7 +36,7 @@
 "already_have_account":"Already Have Account ?",
 "forget_password":"Forget Password",
 "login":"Login",
-"do_not_have_account":"Don’t Have Account",
+"do_not_have_account":"Don’t Have Account?",
 "login_with_google":"Login With Google",
 "or":"Or",
 "all":"All",
@@ -43,12 +48,11 @@
 "work_shop":"Work Shop",
 "book_club":"Book Club",
 "eating":"Eating",
-"exhibition":"Exhibition"
-
-
-
-
-
+"exhibition":"Exhibition",
+"choose_date":"Choose Date",
+"choose_time":"Choose time",
+"let_us_start":"Let’s Start",
+"language_shortcut":"EN"
 
 
 }

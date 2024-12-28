@@ -1,0 +1,106 @@
+import 'package:evently_project/home_screen/login_screen.dart';
+import 'package:evently_project/home_screen/tabs/custom_elevated_button.dart';
+import 'package:evently_project/utilities/app_colors.dart';
+import 'package:evently_project/utilities/app_styles.dart';
+import 'package:evently_project/utilities/assets_manager.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
+import '../../providers/app_language_provider.dart';
+import '../../providers/app_theme_provider.dart';
+
+class StartScreen extends StatefulWidget {
+  static String routeName="startScreen";
+
+  @override
+  State<StartScreen> createState() => _StartScreenState();
+}
+
+class _StartScreenState extends State<StartScreen> {
+  @override
+  Widget build(BuildContext context) {
+
+    var height =MediaQuery.of(context).size.height;
+    var width =MediaQuery.of(context).size.width;
+    var themeProvider= Provider.of<AppThemeProvider>(context);
+    var languageProvider= Provider.of<AppLanguageProvider>(context);
+    bool isLight= themeProvider.appTheme==ThemeMode.light;
+
+
+    return Scaffold(
+      appBar: AppBar(title: Image.asset(AssetsManager.logoRow),centerTitle: true
+        ,backgroundColor:
+      isLight ? AppColors.white:AppColors.primaryDark
+        ,),
+      body: Container(margin: EdgeInsets.symmetric(horizontal:width*(16/393) ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Image.asset(AssetsManager.startImage),
+            Row(children: [
+              Text(AppLocalizations.of(context)!.language
+                ,style: AppStyles.semi20primaryLight,),
+              Spacer(),
+              Container(decoration:
+              BoxDecoration(border: Border.all(width: 2,color: AppColors.primaryLight),
+                  borderRadius:
+                  BorderRadius.circular(16),color: AppColors.transparent),
+
+                child: Row(children: [InkWell(onTap: (){
+                  languageProvider.changeLanguage("en");
+
+
+                },
+                    child: Image.asset(AssetsManager.iconEnglishLanguage))
+                  ,InkWell(onTap: (){
+
+                    languageProvider.changeLanguage("ar");
+
+                  },
+                      child: Image.asset(AssetsManager.iconArabicLanguage))],),)
+
+
+            ],),
+            SizedBox(height: height*(18/841),),
+            Row(children: [
+              Text(AppLocalizations.of(context)!.theme
+                  ,style: AppStyles.semi20primaryLight),
+              Spacer(),
+              Container(decoration:
+              BoxDecoration(border: Border.all(width: 2,color: AppColors.primaryLight),
+                  borderRadius:
+              BorderRadius.circular(16),color: AppColors.transparent),
+
+                child: Row(children: [
+                  InkWell(child: Icon(CupertinoIcons.sun_max,color: AppColors.primaryLight,),
+                    onTap:(){
+                      themeProvider.changeTheme(ThemeMode.light);
+
+                    } ,),
+                  InkWell(child: Icon(CupertinoIcons.moon_fill,color: AppColors.primaryLight,),
+                      onTap:(){
+                        themeProvider.changeTheme(ThemeMode.dark);
+
+                      } ),
+
+
+            ],),)
+
+
+            ],),
+            SizedBox(height: height*(28/841),),
+            CustomElevatedButton(buttonLabel: AppLocalizations.of(context)!.let_us_start, onClick: onClick)
+
+
+          ],),
+      ),
+
+      ) ;
+  }
+
+  onClick(){
+
+    Navigator.of(context).pushReplacementNamed(LoginScreen.routeName);
+  }
+}

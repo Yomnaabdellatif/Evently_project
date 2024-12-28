@@ -6,6 +6,7 @@ class AppTheme {
 
   static final ThemeData lightTheme=ThemeData(
     primaryColor: AppColors.primaryLight,
+    scaffoldBackgroundColor:AppColors.white,
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         elevation: 0,
         showUnselectedLabels: true,
@@ -25,6 +26,7 @@ class AppTheme {
 
   static final ThemeData darkTheme=
   ThemeData( primaryColor: AppColors.primaryDark,
+      scaffoldBackgroundColor:AppColors.primaryDark,
       floatingActionButtonTheme: FloatingActionButtonThemeData(backgroundColor: AppColors.primaryDark,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(75),side: BorderSide(color: AppColors.white,width: 4)
   )),

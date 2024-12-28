@@ -16,7 +16,7 @@ class FavoriteTab extends StatelessWidget {
     return Scaffold(
         body: Column(children: [
 
-      Container(
+              Container(
         margin: EdgeInsets.only(top: height*(64/841)),
         padding:  EdgeInsets.symmetric(horizontal: width*(16/393)),
         child: CustomTextFormField(
@@ -26,16 +26,14 @@ class FavoriteTab extends StatelessWidget {
           borderColor: AppColors.primaryLight,
           hintText: AppLocalizations.of(context)!.search_for_event,
         ),
-      ),
+              ),
 
 
-
-
-      SizedBox(height: height*(16/841),),
-      Expanded(child:
-      ListView.builder(itemBuilder: (context,index){
+              SizedBox(height: height*(16/841),),
+              Expanded(child:
+              ListView.builder(itemBuilder: (context,index){
         return EventItemWidget();},
         itemCount: 15,))
-    ],));
+            ],));
   }
 }

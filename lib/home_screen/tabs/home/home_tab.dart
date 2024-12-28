@@ -1,17 +1,15 @@
 import 'package:evently_project/home_screen/tabs/home/event_item_widget.dart';
 import 'package:evently_project/home_screen/tabs/home/tab_event_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:evently_project/utilities/app_theme.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:evently_project/utilities/app_colors.dart';
 import 'package:evently_project/utilities/app_styles.dart';
 import 'package:evently_project/utilities/assets_manager.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
+
 import '../../../providers/app_language_provider.dart';
 import '../../../providers/app_theme_provider.dart';
+
 
 
 class HomeTab extends StatefulWidget {
@@ -39,9 +37,14 @@ class _HomeTabState extends State<HomeTab> {
     ];
     var height =MediaQuery.of(context).size.height;
     var width =MediaQuery.of(context).size.width;
-    var languageProvider= Provider.of<AppLanguageProvider>(context);
     var themeProvider= Provider.of<AppThemeProvider>(context);
+    var languageProvider= Provider.of<AppLanguageProvider>(context);
+
+    bool isLight= themeProvider.appTheme==ThemeMode.light;
+    bool isEnglish= languageProvider.appLanguage=="en";
+
     return Scaffold(appBar: AppBar(
+
       title: Row(
       children:
       [Column(crossAxisAlignment: CrossAxisAlignment.start,
@@ -55,16 +58,42 @@ class _HomeTabState extends State<HomeTab> {
 
     ],),
         const Spacer(),
-        const Icon(Icons.sunny,color: AppColors.white,),
+        InkWell(child: const Icon(Icons.sunny,color: AppColors.white,),onTap: (){
+          if(isLight){
+          themeProvider.changeTheme(ThemeMode.dark);
+          }
+          else{
+            themeProvider.changeTheme(ThemeMode.light);
+          }
+
+        },),
         SizedBox(width: width*0.01,),
-        Container(child:  Text("EN",style: AppStyles.bold14primaryLight.copyWith(
-          color: Theme.of(context).primaryColor),),
-          padding: EdgeInsets.all(height*0.01),decoration: BoxDecoration(color: AppColors.white,
-              borderRadius: BorderRadius.circular(8)),)
+        InkWell(onTap: (){
+          if(isEnglish){
+            languageProvider.changeLanguage("ar");
+          }
+          else{
+            languageProvider.changeLanguage("en");
+          }
+
+
+        },
+          child: Container(child:
+          Text(
+            AppLocalizations.of(context)!.language_shortcut
+
+
+
+          ,style: AppStyles.bold14primaryLight.copyWith(
+            color: Theme.of(context).primaryColor),),
+            padding: EdgeInsets.all(height*0.01),decoration: BoxDecoration(color: AppColors.white,
+                borderRadius: BorderRadius.circular(8)),),
+        )
 
 
       ],),
       backgroundColor:Theme.of(context).primaryColor,),
+
       body: Column(children: [
         Container(height: height*0.16,
           padding: EdgeInsets.symmetric(horizontal: height*0.02,vertical: width*0.02),
@@ -96,7 +125,10 @@ class _HomeTabState extends State<HomeTab> {
               },
 
               tabs: eventNameList.map((eventName){
-              return TabEventWidget(eventName: eventName, isSelected: selectedIndex==eventNameList.indexOf(eventName));
+              return TabEventWidget(backgroundColor: isLight? AppColors.white:AppColors.primaryLight,
+                  textSelectedStyle: isLight? AppStyles.semi16primaryLight:AppStyles.semi16White
+                  ,textUnSelectedStyle: AppStyles.semi16White,
+                  eventName: eventName, isSelected: selectedIndex==eventNameList.indexOf(eventName));
 
               }).toList(),)),
 

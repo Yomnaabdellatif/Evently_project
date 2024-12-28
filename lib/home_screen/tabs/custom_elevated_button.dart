@@ -26,7 +26,7 @@ Function onClick;
         style: ElevatedButton.
     styleFrom(backgroundColor:backgroundColor,elevation: 0,
             disabledBackgroundColor: AppColors.transparent,overlayColor:AppColors.transparent
-            ,padding: EdgeInsets.symmetric(vertical: height*((25)/840)),
+            ,padding: EdgeInsets.symmetric(vertical: height*((15)/920)),
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
             side: BorderSide(color: AppColors.primaryLight)
