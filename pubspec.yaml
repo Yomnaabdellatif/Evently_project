@@ -56,6 +56,8 @@ dev_dependencies:
   google_fonts: ^6.2.1
   flutter_native_splash: ^2.4.1
   onboarding: ^4.0.2
+  shared_preferences: ^2.3.3
+
 
 
 flutter_native_splash:

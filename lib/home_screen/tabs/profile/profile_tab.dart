@@ -17,6 +17,8 @@ class ProfileTab extends StatelessWidget {
     var width =MediaQuery.of(context).size.width;
     var languageProvider= Provider.of<AppLanguageProvider>(context);
     var themeProvider= Provider.of<AppThemeProvider>(context);
+
+    bool isLight= themeProvider.appTheme==ThemeMode.light;
     return Scaffold(
       appBar: AppBar(backgroundColor: AppColors.primaryLight,
         title: Row(children: [Image.asset(AssetsManager.profileImage),SizedBox(width: width*0.01,),
@@ -26,7 +28,7 @@ class ProfileTab extends StatelessWidget {
         padding:  EdgeInsets.all(height * 0.02),
         child: Column(crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(AppLocalizations.of(context)!.language,style: AppStyles.bold20Black,),
+            Text(AppLocalizations.of(context)!.language,style: isLight?AppStyles.bold20Black:AppStyles.bold20white,),
             InkWell(
               onTap: (){
                 showLanguageBottomSheet( context);
@@ -52,7 +54,7 @@ class ProfileTab extends StatelessWidget {
 
             SizedBox(height: height*0.05,),
             Text(AppLocalizations.of(context)!.theme
-              ,style: AppStyles.bold20Black,),
+              ,style: isLight?AppStyles.bold20Black:AppStyles.bold20white),
             InkWell(
               onTap: (){
                 showThemeBottomSheet( context);

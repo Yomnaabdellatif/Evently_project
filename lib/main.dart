@@ -19,10 +19,14 @@ WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+final languageProvider = AppLanguageProvider();
+final themeProvider = AppThemeProvider();
+await languageProvider.loadLanguage();
+await themeProvider.loadTheme();
   runApp(
       MultiProvider(providers: [
-        ChangeNotifierProvider(create: (context)=>AppLanguageProvider()),
-        ChangeNotifierProvider(create: (context)=>AppThemeProvider())
+        ChangeNotifierProvider(create: (context)=>languageProvider),
+        ChangeNotifierProvider(create: (context)=>themeProvider)
       ],
 
           child: MyApp()));

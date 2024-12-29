@@ -134,8 +134,10 @@ String formatedTime="";
               return null;
 
             },
+              textStyle: isLight? AppStyles.semi16Gray:AppStyles.semi16LightGray,
               controller: titleController,
-              hintText: AppLocalizations.of(context)!.event_title,hintStyle:isLight? AppStyles.semi16Black:AppStyles.semi16LightGray
+              hintText: AppLocalizations.of(context)!.event_title,
+              hintStyle:isLight? AppStyles.semi16Gray:AppStyles.semi16LightGray
               ,
               prefixIcon:
               Image.asset(AssetsManager.iconEdit,color: isLight? AppColors.gray:AppColors.lightGray,),),
@@ -146,6 +148,7 @@ String formatedTime="";
             ),
             SizedBox(height:height*(8/841) ,),
             CustomTextFormField(controller: descriptionController,
+              textStyle: isLight? AppStyles.semi16Gray:AppStyles.semi16LightGray,
               validator: (text){
                 if(text==null||text.isEmpty){
                   return "please enter event description";
@@ -153,7 +156,7 @@ String formatedTime="";
                 return null;
               },
 
-              hintStyle: isLight? AppStyles.semi16Black:AppStyles.semi16LightGray,
+              hintStyle: isLight? AppStyles.semi16Gray:AppStyles.semi16LightGray,
               hintText: AppLocalizations.of(context)!.event_description,maxLines: 4,),
             SizedBox(height:height*(16/841) ,),
             ChooseDateOrTime(icon: Icons.calendar_month,
