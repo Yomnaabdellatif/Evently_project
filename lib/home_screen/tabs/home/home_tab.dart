@@ -1,12 +1,16 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:evently_project/firebase_utils.dart';
+import 'package:evently_project/home_screen/event_details.dart';
 import 'package:evently_project/home_screen/tabs/home/event_item_widget.dart';
 import 'package:evently_project/home_screen/tabs/home/tab_event_widget.dart';
+import 'package:evently_project/providers/event_list_provider.dart';
+import 'package:evently_project/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:evently_project/utilities/app_colors.dart';
 import 'package:evently_project/utilities/app_styles.dart';
 import 'package:evently_project/utilities/assets_manager.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
-
 import '../../../providers/app_language_provider.dart';
 import '../../../providers/app_theme_provider.dart';
 
@@ -18,23 +22,17 @@ class HomeTab extends StatefulWidget {
 }
 
 class _HomeTabState extends State<HomeTab> {
-  int selectedIndex=0;
+
 
   @override
   Widget build(BuildContext context) {
-    List<String> eventNameList=[
-      AppLocalizations.of(context)!.all,
-      AppLocalizations.of(context)!.sports,
-      AppLocalizations.of(context)!.meeting,
-      AppLocalizations.of(context)!.eating,
-      AppLocalizations.of(context)!.book_club,
-      AppLocalizations.of(context)!.birthday,
-      AppLocalizations.of(context)!.exhibition,
-      AppLocalizations.of(context)!.work_shop,
-      AppLocalizations.of(context)!.holiday,
-      AppLocalizations.of(context)!.gaming,
 
-    ];
+    var eventListProvider= Provider.of<EventListProvider>(context);
+    var userProvider=Provider.of<UserProvider>(context);
+
+    eventListProvider.getEventNameList(context);
+    if (eventListProvider.eventList.isEmpty){
+      eventListProvider.getAllEvents(userProvider.currentUser!.id);}
     var height =MediaQuery.of(context).size.height;
     var width =MediaQuery.of(context).size.width;
     var themeProvider= Provider.of<AppThemeProvider>(context);
@@ -44,19 +42,21 @@ class _HomeTabState extends State<HomeTab> {
     bool isEnglish= languageProvider.appLanguage=="en";
 
     return Scaffold(appBar: AppBar(
-
+       automaticallyImplyLeading: false,
       title: Row(
       children:
-      [Column(crossAxisAlignment: CrossAxisAlignment.start,
-        children:
-    [Text(AppLocalizations.of(context)!.welcome_back,style: AppStyles.regular14White,),
-      Text("YOMNA",style: AppStyles.bold24White,),
-
-
-
-
-
-    ],),
+      [Expanded(
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+          children:
+            [Text(AppLocalizations.of(context)!.welcome_back,style: AppStyles.regular14White,),
+        Text(userProvider.currentUser!.name,style: AppStyles.bold24White),
+        
+        
+        
+        
+        
+            ],),
+      ),
         const Spacer(),
         InkWell(child: const Icon(Icons.sunny,color: AppColors.white,),onTap: (){
           if(isLight){
@@ -110,7 +110,7 @@ class _HomeTabState extends State<HomeTab> {
               ],
             ),
               DefaultTabController(
-                length: eventNameList.length,
+                length: eventListProvider.eventNameList.length,
                 child:
                 TabBar(isScrollable: true,
                   indicatorColor: AppColors.transparent,
@@ -118,27 +118,33 @@ class _HomeTabState extends State<HomeTab> {
                   dividerColor: AppColors.transparent,
               tabAlignment: TabAlignment.start,
               onTap: (index){
-                  selectedIndex=index;
-                  setState(() {
+                eventListProvider.changeSelectedIndex(index,userProvider.currentUser!.id);
 
-                  });
               },
 
-              tabs: eventNameList.map((eventName){
+              tabs: eventListProvider.eventNameList.map((eventName){
               return TabEventWidget(backgroundColor: isLight? AppColors.white:AppColors.primaryLight,
                   textSelectedStyle: isLight? AppStyles.semi16primaryLight:AppStyles.semi16White
                   ,textUnSelectedStyle: AppStyles.semi16White,
-                  eventName: eventName, isSelected: selectedIndex==eventNameList.indexOf(eventName));
-
-              }).toList(),)),
+                  eventName: eventName,
+                  isSelected: eventListProvider.selectedIndex== eventListProvider.eventNameList.indexOf(eventName));
+                  }).toList(),)),
 
 
           ],),),
         SizedBox(height: height*0.1,),
-        Expanded(child:
+        Expanded(child:eventListProvider.filterList.isEmpty?
+            Center(child: Text(AppLocalizations.of(context)!.no_events_found
+              ,style: isLight? AppStyles.semi16Black: AppStyles.semi16LightGray,),):
         ListView.builder(itemBuilder: (context,index){
-          return EventItemWidget();},
-          itemCount: 15,))],)
+          return InkWell(onTap: (){
+            final event = eventListProvider.filterList[index];
+            eventListProvider.setSelectedEvent(event);
+            Navigator.pushNamed(context, EventDetails.routeName);
+
+          },
+              child: EventItemWidget(event: eventListProvider.filterList[index],));},
+          itemCount: eventListProvider.filterList.length,))],)
       ,) ;
 
 

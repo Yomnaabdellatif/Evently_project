@@ -1,15 +1,19 @@
+import 'package:evently_project/firebase_utils.dart';
 import 'package:evently_project/home_screen/tabs/choose_date_or_time.dart';
 import 'package:evently_project/home_screen/tabs/custom_elevated_button.dart';
 import 'package:evently_project/home_screen/tabs/custom_text_form_field.dart';
 import 'package:evently_project/home_screen/tabs/home/tab_event_widget.dart';
+import 'package:evently_project/model/event.dart';
+import 'package:evently_project/providers/event_list_provider.dart';
 import 'package:evently_project/utilities/app_colors.dart';
 import 'package:evently_project/utilities/assets_manager.dart';
+import 'package:evently_project/utilities/flutter_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import '../providers/app_language_provider.dart';
 import '../providers/app_theme_provider.dart';
+import '../providers/user_provider.dart';
 import '../utilities/app_styles.dart';
 
 class CreateEventScreen extends StatefulWidget {
@@ -29,10 +33,14 @@ TimeOfDay?selectedTime;
 String formatedDate="";
 String formatedTime="";
 
-
-
+String selectedImage="";
+String selectedEvent="";
+ late EventListProvider eventListProvider;
+late UserProvider userProvider;
   @override
   Widget build(BuildContext context) {
+     userProvider=Provider.of<UserProvider>(context);
+
     List<String> eventNameList=[
       AppLocalizations.of(context)!.sports,
       AppLocalizations.of(context)!.meeting,
@@ -58,8 +66,10 @@ String formatedTime="";
 
 
     ];
+    selectedImage=eventImageList[selected];
+    selectedEvent=eventNameList[selected];
     var themeProvider= Provider.of<AppThemeProvider>(context);
-    var languageProvider= Provider.of<AppLanguageProvider>(context);
+     eventListProvider= Provider.of<EventListProvider>(context);
     bool isLight= themeProvider.appTheme==ThemeMode.light;
 
 
@@ -67,7 +77,8 @@ String formatedTime="";
     var width =MediaQuery.of(context).size.width;
     return Scaffold(appBar:
     AppBar(title: Text(AppLocalizations.of(context)!.create_event
-      ,style: AppStyles.semi16primaryLight,),centerTitle: true,iconTheme: IconThemeData(color: AppColors.primaryLight),
+      ,style: AppStyles.semi16primaryLight,),centerTitle: true,
+      iconTheme: const IconThemeData(color: AppColors.primaryLight),
       forceMaterialTransparency: true,
 
     ),
@@ -77,7 +88,6 @@ String formatedTime="";
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            //todo  border color
             ClipRRect(borderRadius: BorderRadius.circular(16),
               child: Image.asset(eventImageList[selected],
                 width: width*(361/393),height: height*(203/840),
@@ -128,14 +138,14 @@ String formatedTime="";
             CustomTextFormField(validator: (text){
 
               if(text==null||text.isEmpty){
-                return "please enter event title";
+                return AppLocalizations.of(context)!.please_enter_event_title;
               }
 
               return null;
 
             },
-              textStyle: isLight? AppStyles.semi16Gray:AppStyles.semi16LightGray,
               controller: titleController,
+              textStyle: isLight? AppStyles.semi16Black:AppStyles.semi16LightGray,
               hintText: AppLocalizations.of(context)!.event_title,
               hintStyle:isLight? AppStyles.semi16Gray:AppStyles.semi16LightGray
               ,
@@ -148,10 +158,10 @@ String formatedTime="";
             ),
             SizedBox(height:height*(8/841) ,),
             CustomTextFormField(controller: descriptionController,
-              textStyle: isLight? AppStyles.semi16Gray:AppStyles.semi16LightGray,
+              textStyle: isLight? AppStyles.semi16Black:AppStyles.semi16LightGray,
               validator: (text){
                 if(text==null||text.isEmpty){
-                  return "please enter event description";
+                  return AppLocalizations.of(context)!.please_enter_event_description;
                 }
                 return null;
               },
@@ -167,7 +177,8 @@ String formatedTime="";
                 eventDateOrTime: AppLocalizations.of(context)!.event_date,
               chooseEventDateOrTime: selectedDate==null?
               AppLocalizations.of(context)!.choose_date
-              : formatedDate,
+              : DateFormat("dd/MM/yyyy").format(selectedDate!)
+              ,
               // " ${selectedDate!.day}/${selectedDate!.month}/${selectedDate!.year}",
               onChooseDateOrTime: chooseDate,),
             ChooseDateOrTime(icon: Icons.access_time_rounded
@@ -200,10 +211,10 @@ String formatedTime="";
                           color: AppColors.primaryLight,
                           borderRadius: BorderRadius.circular(10)
                       ),
-                      child: Icon(Icons.my_location_rounded,color: AppColors.white,)),
+                      child: const Icon(Icons.my_location_rounded,color: AppColors.white,)),
                   Text(AppLocalizations.of(context)!.choose_event_location,style: AppStyles.semi16primaryLight,),
-                  Spacer(),
-                  Icon(Icons.arrow_forward_ios,color: AppColors.primaryLight,)
+                  const Spacer(),
+                  const Icon(Icons.arrow_forward_ios,color: AppColors.primaryLight,)
 
                 ],)
             ),
@@ -220,9 +231,35 @@ String formatedTime="";
 
       );
   }
-//todo add event click
   onClick() {
     if(formKey.currentState!.validate()==true){
+      Event event=Event(title: titleController.text,
+          description: descriptionController.text,
+          eventName: selectedEvent,
+          image: selectedImage,
+          time:formatedTime,
+          dateTime:selectedDate!
+      );
+
+      FirebaseUtils.addEventToFireStore(event,userProvider.currentUser!.id).then((value){
+
+        if(eventListProvider.selectedIndex==0){
+          eventListProvider.getAllEvents(userProvider.currentUser!.id);
+
+        }else {eventListProvider.getFilterEvents(userProvider.currentUser!.id);}
+        ToastMassage.toastMsg(msg: AppLocalizations.of(context)!.added_event);
+        Navigator.pop(context);
+
+      }
+      );
+      // timeout( Duration(milliseconds: 600),onTimeout: (){
+      //   eventListProvider.getAllEvents(userProvider.currentUser!.id);
+      //   ToastMassage.toastMsg(msg: AppLocalizations.of(context)!.added_event);
+      //   Navigator.pop(context);
+      //   selected=0;
+      // });
+
+
     }
   }
 
@@ -237,10 +274,10 @@ String formatedTime="";
   void chooseDate() async{
    var chooseDate=await showDatePicker(context: context,
         firstDate: DateTime.now(),
-        lastDate:  DateTime.now().add(Duration(days: 365)),
+        lastDate:  DateTime.now().add(const Duration(days: 365)),
         initialDate: DateTime.now());
    selectedDate=chooseDate;
-   formatedDate=DateFormat("dd/MM/yyyy").format(selectedDate!);
+   // formatedDate=DateFormat("dd/MM/yyyy").format(selectedDate!);
 
    setState(() {
    });

@@ -7,7 +7,7 @@ class AssetsManager{
 
   static String changeSetting ="assets/images/change_setting.png";
   static String iconName ="assets/images/name_icon.png";
-
+  static String iconDelete ="assets/images/delete_icon.png";
   static String iconProfile ="assets/images/profile_icon.png";
   static String iconLove ="assets/images/love_icon.png";
   static String iconHome ="assets/images/home_icon.png";

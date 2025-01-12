@@ -17,6 +17,7 @@ bool? obscureText;
 int? maxLines;
 TextEditingController? controller;
   TextStyle? textStyle;
+  TextInputType keyBoardType;
 
   // String? Function(String?)? validator;
   CustomTextFormField({
@@ -31,6 +32,7 @@ TextEditingController? controller;
     this.iconColor=AppColors.gray,
     this.validator,
     this.textStyle,
+    this.keyBoardType = TextInputType.text
 
 
 
@@ -39,6 +41,7 @@ TextEditingController? controller;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      keyboardType:keyBoardType ,
       style:textStyle ,
       obscuringCharacter: "*",
       obscureText:obscureText ??false,

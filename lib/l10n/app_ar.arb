@@ -52,6 +52,12 @@
 "choose_date":"اختر التاريخ",
 "choose_time":"اختر الوقت",
 "let_us_start":"هيا نبدأ",
-"language_shortcut":"ع"
+"language_shortcut":"ع",
+"no_events_found":"لا توجد مواعيد",
+"please_enter_event_description":"من فضلك ادخل الوصف",
+"please_enter_event_title":"من فضلك ادخل العنوان",
+"updated_event":"تم تعديل الموعد",
+"added_event":"تم إضافة الموعد",
+"not_found_favorite_items":"لا توجد مواعيد مفضلة"
 
 }

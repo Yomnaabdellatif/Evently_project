@@ -1,15 +1,23 @@
+import 'package:evently_project/model/event.dart';
 import 'package:evently_project/utilities/app_colors.dart';
 import 'package:evently_project/utilities/app_styles.dart';
 import 'package:evently_project/utilities/assets_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../../../providers/app_theme_provider.dart';
+import '../../../providers/event_list_provider.dart';
+import '../../../providers/user_provider.dart';
 
 class EventItemWidget extends StatelessWidget {
-  const EventItemWidget({super.key});
+   Event event;
+  EventItemWidget({ required this.event});
 
   @override
   Widget build(BuildContext context) {
+    var eventListProvider = Provider.of<EventListProvider>(context, listen: false);
+    var userProvider=Provider.of<UserProvider>(context,listen: false);
+
     var themeProvider= Provider.of<AppThemeProvider>(context);
     var height =MediaQuery.of(context).size.height;
     var width =MediaQuery.of(context).size.width;
@@ -20,7 +28,7 @@ class EventItemWidget extends StatelessWidget {
           horizontal: width*(16/393)),
 
       decoration:
-      BoxDecoration(image:DecorationImage(image:AssetImage(AssetsManager.sports),
+      BoxDecoration(image:DecorationImage(image:AssetImage(event.image),
           fit: BoxFit.fill),
           borderRadius: BorderRadius.circular(16),
         border: Border.all(color: AppColors.primaryLight)
@@ -39,8 +47,8 @@ class EventItemWidget extends StatelessWidget {
 
       child: Column(
       children: [
-        Text("21",style: AppStyles.bold20primaryLight,),
-        Text("Nov",style: AppStyles.bold20primaryLight,),
+        Text("${event.dateTime.day}",style: AppStyles.bold20primaryLight,),
+        Text("${DateFormat("MMM").format(event.dateTime)}",style: AppStyles.bold20primaryLight,),
 
       ],
     ),),
@@ -58,12 +66,29 @@ class EventItemWidget extends StatelessWidget {
           // mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Expanded(
-              child: Text("Meeting for Updating The Development Method ",style:
+              child: Text(event.title
+                  ,style:
               themeProvider.appTheme==ThemeMode.light ?
               AppStyles.bold14Black:AppStyles.bold14White
               ),
             )
-            ,Image.asset(AssetsManager.iconLove,color: AppColors.primaryLight,)
+            ,
+            InkWell(onTap: (){
+              eventListProvider.updateIsFavorite(event,context,userProvider.currentUser!.id);
+
+
+            },
+                child:
+                Image.asset(event.isFavorite?
+                  AssetsManager.iconLoveSelected:
+                AssetsManager.iconLove
+
+                  ,color: AppColors.primaryLight,)
+
+
+
+
+            )
 
           ],
         ),)],),

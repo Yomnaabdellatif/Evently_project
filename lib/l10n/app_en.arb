@@ -52,7 +52,14 @@
 "choose_date":"Choose Date",
 "choose_time":"Choose time",
 "let_us_start":"Let’s Start",
-"language_shortcut":"EN"
+"language_shortcut":"EN",
+"no_events_found":"No Events Found",
+"please_enter_event_description":"please enter event description",
+"please_enter_event_title":"please enter event title",
+"updated_event":"Update Event",
+"added_event":"Added Event",
+"not_found_favorite_items":"Not Found Favorite Items"
+
 
 
 }

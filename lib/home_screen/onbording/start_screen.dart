@@ -26,6 +26,7 @@ class _StartScreenState extends State<StartScreen> {
     var themeProvider= Provider.of<AppThemeProvider>(context);
     var languageProvider= Provider.of<AppLanguageProvider>(context);
     bool isLight= themeProvider.appTheme==ThemeMode.light;
+    bool isEnglish= languageProvider.appLanguage=="en";
 
 
     return Scaffold(
@@ -41,24 +42,26 @@ class _StartScreenState extends State<StartScreen> {
             Row(children: [
               Text(AppLocalizations.of(context)!.language
                 ,style: AppStyles.semi20primaryLight,),
-              Spacer(),
+              const Spacer(),
               Container(decoration:
               BoxDecoration(border: Border.all(width: 2,color: AppColors.primaryLight),
                   borderRadius:
                   BorderRadius.circular(16),color: AppColors.transparent),
 
-                child: Row(children: [InkWell(onTap: (){
-                  languageProvider.changeLanguage("en");
-
+                child: InkWell(onTap: (){
+                  if(isEnglish){
+                    languageProvider.changeLanguage("ar");
+                  }
+                  else{
+                    languageProvider.changeLanguage("en");
+                  }
 
                 },
-                    child: Image.asset(AssetsManager.iconEnglishLanguage))
-                  ,InkWell(onTap: (){
-
-                    languageProvider.changeLanguage("ar");
-
-                  },
-                      child: Image.asset(AssetsManager.iconArabicLanguage))],),)
+                  child: Row(mainAxisAlignment: MainAxisAlignment.center,
+                    children: [Image.asset(AssetsManager.iconEnglishLanguage)
+                      , Image.asset(AssetsManager.iconArabicLanguage)
+                    ],),
+                ),)
 
 
             ],),
@@ -66,26 +69,26 @@ class _StartScreenState extends State<StartScreen> {
             Row(children: [
               Text(AppLocalizations.of(context)!.theme
                   ,style: AppStyles.semi20primaryLight),
-              Spacer(),
+              const Spacer(),
               Container(decoration:
               BoxDecoration(border: Border.all(width: 2,color: AppColors.primaryLight),
                   borderRadius:
               BorderRadius.circular(16),color: AppColors.transparent),
 
-                child: Row(children: [
-                  InkWell(child: Icon(CupertinoIcons.sun_max,color: AppColors.primaryLight,),
-                    onTap:(){
-                      themeProvider.changeTheme(ThemeMode.light);
+                child: InkWell(onTap: (){
+                  if(isLight){
+                    themeProvider.changeTheme(ThemeMode.dark);
+                  }
+                  else{
+                    themeProvider.changeTheme(ThemeMode.light);
+                  }
 
-                    } ,),
-                  InkWell(child: Icon(CupertinoIcons.moon_fill,color: AppColors.primaryLight,),
-                      onTap:(){
-                        themeProvider.changeTheme(ThemeMode.dark);
-
-                      } ),
-
-
-            ],),)
+                },
+                  child: const Row(children: [
+                     Icon(CupertinoIcons.sun_max,color: AppColors.primaryLight,),
+                    Icon(CupertinoIcons.moon_fill,color: AppColors.primaryLight,),
+                              ],),
+                ),)
 
 
             ],),

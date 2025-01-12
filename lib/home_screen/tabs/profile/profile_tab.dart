@@ -1,3 +1,5 @@
+import 'package:evently_project/home_screen/login_screen.dart';
+import 'package:evently_project/providers/event_list_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:evently_project/home_screen/language_bottom_sheet.dart';
@@ -8,6 +10,7 @@ import 'package:evently_project/utilities/assets_manager.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../providers/app_language_provider.dart';
 import '../../../providers/app_theme_provider.dart';
+import '../../../providers/user_provider.dart';
 
 class ProfileTab extends StatelessWidget {
 
@@ -17,12 +20,22 @@ class ProfileTab extends StatelessWidget {
     var width =MediaQuery.of(context).size.width;
     var languageProvider= Provider.of<AppLanguageProvider>(context);
     var themeProvider= Provider.of<AppThemeProvider>(context);
+    var userProvider= Provider.of<UserProvider>(context);
+    var eventListProvider= Provider.of<EventListProvider>(context);
+
+
 
     bool isLight= themeProvider.appTheme==ThemeMode.light;
     return Scaffold(
       appBar: AppBar(backgroundColor: AppColors.primaryLight,
-        title: Row(children: [Image.asset(AssetsManager.profileImage),SizedBox(width: width*0.01,),
-        Column(children: [Text("Route ",style: AppStyles.bold24White,),Text("route@gmail.com",style: AppStyles.semi16White,)],)],),
+        automaticallyImplyLeading: false,
+        title: Row(children: [Image.asset(AssetsManager.profileImage,width: width*(124/393),),
+          SizedBox(width: width*0.01,),
+        Expanded(
+          child: Column(children: [Text(userProvider.currentUser!.name,style: AppStyles.bold24White,maxLines: 2,)
+            ,Text(userProvider.currentUser!.email,style: AppStyles.semi16White ,maxLines: 3,)],),
+        )
+        ],),
         toolbarHeight: height*0.2,shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(bottomLeft: Radius.circular(60))),),
       body: Padding(
         padding:  EdgeInsets.all(height * 0.02),
@@ -86,6 +99,11 @@ class ProfileTab extends StatelessWidget {
             Spacer(),
 
             ElevatedButton(onPressed: (){
+              eventListProvider.filterList=[];
+              eventListProvider.favoriteEventList=[];
+
+              eventListProvider.selectedIndex=0;
+              Navigator.pushReplacementNamed(context, LoginScreen.routeName);
             },
                 style: ElevatedButton.
                 styleFrom(backgroundColor:AppColors.red,elevation: 0,
