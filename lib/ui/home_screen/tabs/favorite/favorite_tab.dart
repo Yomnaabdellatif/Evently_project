@@ -1,14 +1,14 @@
-import 'package:evently_project/home_screen/tabs/custom_text_form_field.dart';
 import 'package:evently_project/utilities/app_colors.dart';
 import 'package:evently_project/utilities/app_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
-import '../../../model/event.dart';
-import '../../../providers/app_theme_provider.dart';
-import '../../../providers/event_list_provider.dart';
-import '../../../providers/user_provider.dart';
+import '../../../../model/event.dart';
+import '../../../../providers/app_theme_provider.dart';
+import '../../../../providers/event_list_provider.dart';
+import '../../../../providers/user_provider.dart';
 import '../../event_details.dart';
+import '../custom_text_form_field.dart';
 import '../home/event_item_widget.dart';
 
 class FavoriteTab extends StatefulWidget {

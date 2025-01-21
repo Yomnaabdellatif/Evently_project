@@ -1,9 +1,10 @@
-import 'package:evently_project/home_screen/onbording/start_screen.dart';
+import 'package:evently_project/ui/home_screen/onbording/start_screen.dart';
 import 'package:evently_project/utilities/assets_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../providers/app_theme_provider.dart';
+import '../../../providers/app_theme_provider.dart';
+
 
 class SplashScreen extends StatefulWidget {
   static const routeName = 'splash';

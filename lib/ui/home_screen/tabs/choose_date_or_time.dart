@@ -2,8 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-import '../../utilities/app_colors.dart';
-import '../../utilities/app_styles.dart';
+import '../../../utilities/app_styles.dart';
 
 class ChooseDateOrTime extends StatelessWidget {
   String eventDateOrTime;

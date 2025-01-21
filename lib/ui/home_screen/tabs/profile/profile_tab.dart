@@ -1,16 +1,18 @@
-import 'package:evently_project/home_screen/login_screen.dart';
 import 'package:evently_project/providers/event_list_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:evently_project/home_screen/language_bottom_sheet.dart';
-import 'package:evently_project/home_screen/theme_bottom_sheet.dart';
+
 import 'package:evently_project/utilities/app_colors.dart';
 import 'package:evently_project/utilities/app_styles.dart';
 import 'package:evently_project/utilities/assets_manager.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../../../providers/app_language_provider.dart';
-import '../../../providers/app_theme_provider.dart';
-import '../../../providers/user_provider.dart';
+import '../../../../providers/app_language_provider.dart';
+import '../../../../providers/app_theme_provider.dart';
+import '../../../../providers/user_provider.dart';
+import '../../../auth/login/login_screen.dart';
+import '../../language_bottom_sheet.dart';
+import '../../theme_bottom_sheet.dart';
+
 
 class ProfileTab extends StatelessWidget {
 
@@ -32,8 +34,9 @@ class ProfileTab extends StatelessWidget {
         title: Row(children: [Image.asset(AssetsManager.profileImage,width: width*(124/393),),
           SizedBox(width: width*0.01,),
         Expanded(
-          child: Column(children: [Text(userProvider.currentUser!.name,style: AppStyles.bold24White,maxLines: 2,)
-            ,Text(userProvider.currentUser!.email,style: AppStyles.semi16White ,maxLines: 3,)],),
+          //todo
+          child: Column(children: [Text(userProvider.currentUser?.name??"",style: AppStyles.bold24White,maxLines: 2,)
+            ,Text(userProvider.currentUser?.email??"",style: AppStyles.semi16White ,maxLines: 3,)],),
         )
         ],),
         toolbarHeight: height*0.2,shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(bottomLeft: Radius.circular(60))),),
@@ -80,7 +83,8 @@ class ProfileTab extends StatelessWidget {
                   padding:  EdgeInsets.all(height * 0.01),
                   child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(themeProvider.isDarkMode()?
+                      Text(
+                        themeProvider.isDarkMode()?
                       AppLocalizations.of(context)!.dark
                           :
                       AppLocalizations.of(context)!.light

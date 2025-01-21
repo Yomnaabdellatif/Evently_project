@@ -1,13 +1,14 @@
-import 'package:evently_project/home_screen/create_event_screen.dart';
-import 'package:evently_project/home_screen/language_bottom_sheet.dart';
-import 'package:evently_project/home_screen/tabs/favorite/favorite_tab.dart';
-import 'package:evently_project/home_screen/tabs/home/home_tab.dart';
-import 'package:evently_project/home_screen/tabs/map/map_tab.dart';
-import 'package:evently_project/home_screen/tabs/profile/profile_tab.dart';
+import 'package:evently_project/ui/home_screen/tabs/favorite/favorite_tab.dart';
+import 'package:evently_project/ui/home_screen/tabs/home/home_tab.dart';
+import 'package:evently_project/ui/home_screen/tabs/map/map_tab.dart';
+import 'package:evently_project/ui/home_screen/tabs/profile/profile_tab.dart';
 import 'package:evently_project/utilities/app_colors.dart';
 import 'package:evently_project/utilities/assets_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import 'create_event_screen.dart';
+
 
 class HomeScreen extends StatefulWidget {
   static String routeName="home";

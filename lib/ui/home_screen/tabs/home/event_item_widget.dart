@@ -5,9 +5,10 @@ import 'package:evently_project/utilities/assets_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import '../../../providers/app_theme_provider.dart';
-import '../../../providers/event_list_provider.dart';
-import '../../../providers/user_provider.dart';
+import 'package:evently_project/providers/event_list_provider.dart';
+import '../../../../providers/app_theme_provider.dart';
+import '../../../../providers/user_provider.dart';
+
 
 class EventItemWidget extends StatelessWidget {
    Event event;

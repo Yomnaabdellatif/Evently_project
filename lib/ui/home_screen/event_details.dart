@@ -1,6 +1,3 @@
-import 'package:evently_project/home_screen/edit_event.dart';
-import 'package:evently_project/home_screen/home_screen.dart';
-import 'package:evently_project/model/event.dart';
 import 'package:evently_project/utilities/assets_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -9,9 +6,11 @@ import 'package:provider/provider.dart';
 import '../../utilities/app_colors.dart';
 import '../../utilities/app_styles.dart';
 import '../../../providers/app_theme_provider.dart';
-import '../providers/event_list_provider.dart';
-import '../providers/user_provider.dart';
-import '../utilities/dialog_utils.dart';
+import 'package:evently_project/providers/event_list_provider.dart';
+import '../../../../providers/user_provider.dart';
+import '../../utilities/dialog_utils.dart';
+import 'edit_event.dart';
+import 'home_screen.dart';
 
 
 class EventDetails extends StatelessWidget {
